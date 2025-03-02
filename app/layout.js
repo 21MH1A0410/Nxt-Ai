@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
 
             <footer className="bg-muted/50 py-4">
               <div className=" container mx-auto text-center py-4">
-                <p>Made With love &#10084; by Nxt Ai &copy; 2025</p>
+                <p>Made With love &#10084; by Rama Raju B K &copy; 2025</p>
               </div>
             </footer>
           </ThemeProvider>

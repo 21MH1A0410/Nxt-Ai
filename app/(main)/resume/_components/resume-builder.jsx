@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlertTriangle, Download, Edit, Loader2, Monitor, Save } from "lucide-react";
+import { Download, Edit, Loader2, Monitor, Save } from "lucide-react";
 import { toast } from "sonner";
 import MDEditor from "@uiw/react-md-editor";
 import { Button } from "@/components/ui/button";
@@ -16,15 +16,13 @@ import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
+
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
   const [previewContent, setPreviewContent] = useState(initialContent?.content || "");
-  const { user, isLoaded } = useUser(); // Use isLoaded to check if user is available
+  const { user } = useUser(); 
   const [resumeMode, setResumeMode] = useState("preview");
   const [isGenerating, setIsGenerating] = useState(false);
-
-  // Show loading state if user is not yet loaded
-  
 
   const {
     control,
@@ -140,7 +138,6 @@ export default function ResumeBuilder({ initialContent }) {
           image: { type: "jpeg", quality: 0.98 },
           html2canvas: { scale: 2 },
           jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: "avoid-all" }, // Avoid unnecessary page breaks
         };
         await html2pdf().set(opt).from(element).save();
       }
@@ -151,6 +148,15 @@ export default function ResumeBuilder({ initialContent }) {
       setIsGenerating(false);
     }
   };
+
+  useEffect(() => {
+    if (saveResult && !isSaving) {
+      toast.success("Resume saved successfully!");
+    }
+    if (saveError) {
+      toast.error(saveError.message || "Failed to save resume");
+    }
+  }, [saveResult, saveError, isSaving]);
 
   const onSubmit = async (data) => {
     try {
