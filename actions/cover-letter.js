@@ -19,38 +19,66 @@ export async function generateCoverLetter(data) {
   if (!user) throw new Error("User not found");
 
   const prompt = `
-  Write a highly targeted and impactful cover letter for the ${data.jobTitle} position at ${data.companyName} for ${user.name}.
-  
-  Candidate Profile:
-  - Name: ${user.name}
-  - Industry: ${user.industry} (Specifically mention any experience relevant to the target company's industry)
-  - Years of Experience: ${user.experience}
-  - Core Skills: ${user.skills?.join(", ")} (Emphasize skills relevant to the job description)
-  - Professional Summary: ${user.bio} (Focus on accomplishments related to the key responsibilities of the target role)
-  
-  Job Details:
-  - Job Description: ${data.jobDescription} (Pay close attention to required technologies and key responsibilities)
-  
-  Specific Instructions:
-  
-  1. **Impactful Opening:** Start with a strong hook that connects the candidate's passion or key qualification to the company's mission.
-  2. **Directly Address Job Requirements:** Mirror the language and keywords from the job description to demonstrate a clear understanding of the role.
-  3. **Quantify Achievements:** Provide 2-3 specific examples of accomplishments with measurable results (e.g., percentages, numbers), using bullet points or a similar visually appealing format for clarity.
-  4. **Company Research:** Demonstrate a thorough understanding of ${data.companyName}'s mission, values, and recent projects. Mention a specific project or initiative that resonates with the candidate and explain why.
-  5. **Skills in Context:** Provide context for how the candidate's skills have been applied in previous roles and how they align with the job requirements.
-  6. **Acknowledge and Address Skill Gaps (If Applicable):** If there are any minor skill gaps, acknowledge them and express eagerness to learn.
-  7. **Strong Call to Action:** End with a clear and confident call to action, expressing interest in an interview and highlighting potential contributions to the company. Avoid redundant statements like "resume attached."
-  8. **Personalization:** If possible, address the hiring manager by name.
-  9. **Conciseness:** Keep the letter under 400 words, focusing on the most relevant information.
-  10. **Markdown Formatting:** Use proper business letter formatting in markdown, including:
-     - Candidate's contact information (if available)
-     - Date
-     - Hiring Manager's Name (if known, otherwise use title)
-     - Company Address
-     - Subject Line
-     - Formal salutation and closing
-  
-  Output the cover letter in Markdown format.
+  Generate a highly targeted and impactful cover letter for the `${data.jobTitle}` position at `${data.companyName}` for `${user.name}`.
+
+### **Candidate Profile:**  
+- **Name:** `${user.name}`  
+- **Industry:** `${user.industry}` (Highlight relevant experience related to `${data.companyName}`'s industry)  
+- **Years of Experience:** `${user.experience}`  
+- **Core Skills:** `${user.skills?.join(", ")}` (Emphasize the most relevant skills for this role)  
+- **Professional Summary:** `${user.bio}` (Focus on accomplishments and expertise aligned with the job responsibilities)  
+
+### **Job Details:**  
+- **Job Title:** `${data.jobTitle}`  
+- **Company Name:** `${data.companyName}`  
+- **Job Description:** `${data.jobDescription}` 
+---
+
+### **Cover Letter Generation Instructions:**  
+
+1. **Ensure Proper Line Breaks & Spacing:**  
+   - Use `\n` between **paragraphs** to maintain clear separation.  
+   - Do **not** merge sentences into a single block—each section should be clearly separated.  
+   - Bullet points should be formatted with `- ` (dash + space) for proper readability.  
+
+2. **Impactful Opening:**  
+   - Start with a **strong first paragraph** that connects `${user.name}`'s passion or key qualifications to `${data.companyName}`'s mission.  
+
+3. **Directly Address Job Requirements:**  
+   - Use exact wording from `${data.jobDescription}` where relevant.  
+   - Keep each key point **in a separate paragraph** for clarity.  
+
+4. **Quantify Achievements:**  
+   - Present **2-3 measurable accomplishments** using **bullet points**, formatted as follows:  
+     ```
+     - **[Achievement]**: Improved [metric] by [percentage or impact] using [skill].  
+     - **[Achievement]**: Led [project], resulting in [measurable outcome].  
+     ```  
+
+5. **Company Research & Personalization:**  
+   - Mention a **specific project, value, or initiative** of `${data.companyName}`.  
+   - Ensure this **is in a dedicated paragraph** with a clear transition.  
+
+6. **Strong Call to Action:**  
+   - End with a dedicated **closing paragraph**, including a direct request for an interview.  
+   - Do not include redundant phrases like "resume attached" or "please find enclosed."  
+
+7. **Formatting Guidelines (Markdown for Business Letter):**  
+   - maku sure to set line breaks for lengthy lines in a paragraph.  
+   - Use **bold** (`**text**`) for key highlights (e.g., job title, company name, key skills).  
+   - The letter should include:  
+     - **Candidate’s Contact Information**  
+     - **Date**  
+     - **Hiring Manager’s Name (if available) & Company Address**  
+     - **Subject Line**  
+     - **Formal Salutation & Closing**  
+     - **Bullet points where necessary**  
+
+---
+**Output the cover letter in Markdown format with proper spacing and structure.**  
+
+---
+
   `;
 
   try {
